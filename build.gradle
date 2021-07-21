@@ -1,0 +1,97 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.3.10.RELEASE'
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.4.34")
+    }
+}
+
+plugins {
+    id 'java'
+    id 'maven-publish'
+    id 'application'
+    id 'org.springframework.boot' version '2.3.10.RELEASE'
+}
+
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.signify.lcm'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    // Cucumber dependencies
+    implementation 'io.cucumber:cucumber-java:6.10.4'
+    implementation 'io.cucumber:cucumber-spring:6.10.4'
+    implementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // Serenity dependencies
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber6', version: '2.4.34'
+    implementation group: 'net.serenity-bdd', name: 'serenity-spring', version: '2.4.34'
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '2.4.34'
+    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.4.34'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main'
+            srcDir 'src/test'
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+// Required for cucumber task
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+// use this task to run cucumber tests
+task cucumber() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'com.greeter', 'classpath:features', '--object-factory', 'cucumber.runtime.SerenityObjectFactory']
+        }
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(8))
+    }
+}
+application {
+    mainClass = 'io.cucumber.core.cli.Main'
+}
