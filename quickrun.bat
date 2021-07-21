@@ -1,0 +1,1 @@
+gradlew.bat cucumber -x distTar -x distZip -x bootDistTar -x bootDistZip -x bootJar
