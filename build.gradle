@@ -4,8 +4,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '2.3.10.RELEASE'
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.4.34")
+        classpath group: 'org.springframework.boot', name: 'spring-boot-gradle-plugin', version: '${springBootVersion}'
+        classpath("net.serenity-bdd:serenity-gradle-plugin:${serenityVersion}")
     }
 }
 
@@ -13,7 +13,7 @@ plugins {
     id 'java'
     id 'maven-publish'
     id 'application'
-    id 'org.springframework.boot' version '2.3.10.RELEASE'
+    id 'org.springframework.boot' version "${springBootVersion}"
 }
 
 apply plugin: 'net.serenity-bdd.aggregator'
@@ -30,17 +30,11 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    // Cucumber dependencies
-    implementation 'io.cucumber:cucumber-java:6.10.4'
-    implementation 'io.cucumber:cucumber-spring:6.10.4'
     implementation 'org.springframework.boot:spring-boot-starter-test'
 
     // Serenity dependencies
-    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber6', version: '2.4.34'
-    implementation group: 'net.serenity-bdd', name: 'serenity-spring', version: '2.4.34'
-    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '2.4.34'
-    implementation group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.4.34'
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber6', version: "${serenityVersion}"
+    implementation group: 'net.serenity-bdd', name: 'serenity-spring', version: "${serenityVersion}"
 }
 
 sourceSets {
