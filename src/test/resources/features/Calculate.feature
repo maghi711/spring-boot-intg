@@ -8,3 +8,5 @@ Feature: Greeting feature
     Examples:
       | name     |
       | Ramesh   |
+      | Simon   |
+      | Dominic   |

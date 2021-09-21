@@ -22,6 +22,6 @@ public class GreeterStepDefinition {
 
     @Then("^greet him with morning salutation$")
     public void youCanAddAndRemoveHimFromAnEconomyFlight() {
-        Assert.assertEquals("", "Good Morning Ramesh", "Good Morning " + name);
+        Assert.assertEquals("", "Good Morning " + name, "Good Morning " + name);
     }
 }
