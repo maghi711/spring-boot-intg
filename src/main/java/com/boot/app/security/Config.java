@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 /**
  * A custom web security configurer adapter.
@@ -19,6 +20,9 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  */
 @Configuration
 public class Config extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    CustomFilter filter;
 
     /**
      * Get the bean from the container.
@@ -31,10 +35,11 @@ public class Config extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
-        //http.httpBasic(); // Basic Authentication
-        http.formLogin(); // Form Login
+        http.httpBasic(); // Basic Authentication
+        //http.formLogin(); // Form Login
         //http.authorizeRequests().anyRequest().authenticated(); // all the requests has to be authenticated.
         http.authorizeRequests().antMatchers("/books/").authenticated(); // only authenticate specific endpoints
+        http.addFilterAfter(filter, BasicAuthenticationFilter.class); // call our filter after basic authentication filter.
     }
 
     /*
