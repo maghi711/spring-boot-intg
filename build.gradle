@@ -33,6 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.bouncycastle:bcprov-jdk15on:1.66'
 
     // Serenity dependencies
     implementation group: 'net.serenity-bdd', name: 'serenity-cucumber6', version: "${serenityVersion}"

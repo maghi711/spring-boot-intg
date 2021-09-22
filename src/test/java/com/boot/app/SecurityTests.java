@@ -14,7 +14,7 @@ public class SecurityTests {
         System.out.println(new Pbkdf2PasswordEncoder().encode("aadavan")); // more stronger password authentication
         //System.out.println(new NoOpPasswordEncoder[].encode("aadavan")); // plain text password, don't use in prod, use for testing purposes only.
 
-        //System.out.println(new SCryptPasswordEncoder().encode("aadavan")); // much more stronger password authentication
+        System.out.println(new SCryptPasswordEncoder().encode("aadavan")); // much more stronger password authentication
         // java.lang.NoClassDefFoundError: org/bouncycastle/crypto/generators/SCrypt
     }
 }
