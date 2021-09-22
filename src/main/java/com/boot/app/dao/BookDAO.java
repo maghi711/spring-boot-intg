@@ -15,4 +15,8 @@ public class BookDAO {
                 new Book("Core Java Volume 1", "Cay Horstmann")
         ));
     }
+
+    public Book info() {
+        return new Book("Head First Java", "Kathy Sierra");
+    }
 }

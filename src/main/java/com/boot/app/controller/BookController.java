@@ -21,4 +21,9 @@ public class BookController {
     public Books getAllBooks() {
         return bookDao.getAllBooks();
     }
+
+    @GetMapping(path = "/info", produces = "application/json")
+    public Book info() {
+        return bookDao.info();
+    }
 }

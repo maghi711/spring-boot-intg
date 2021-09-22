@@ -31,9 +31,12 @@ public class Config extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
-        http.httpBasic(); // Basic Authentication
-        http.authorizeRequests().anyRequest().authenticated(); //
+        //http.httpBasic(); // Basic Authentication
+        http.formLogin(); // Form Login
+        //http.authorizeRequests().anyRequest().authenticated(); // all the requests has to be authenticated.
+        http.authorizeRequests().antMatchers("/books/").authenticated(); // only authenticate specific endpoints
     }
+
     /*
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
