@@ -1,20 +1,23 @@
 package com.boot.app.security;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
  * My custom filter.
  */
 @Component
-public class CustomFilter implements Filter {
+public class CustomFilter extends OncePerRequestFilter {
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         System.out.println("Before");
-        chain.doFilter(request, response);
+        filterChain.doFilter(request, response);
         System.out.println("After");
     }
 
